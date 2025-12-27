@@ -20,6 +20,18 @@
                 :placeholder="__('Full name')"
             />
 
+            <!-- Username -->
+            <flux:input
+                name="username"
+                :label="__('Username')"
+                :value="old('username')"
+                type="text"
+                required
+                autofocus
+                autocomplete="username"
+                :placeholder="__('The username for login')"
+            />
+
             <!-- Email Address -->
             <flux:input
                 name="email"

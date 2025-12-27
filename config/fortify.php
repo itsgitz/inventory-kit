@@ -43,6 +43,10 @@ return [
     | requests to have a field named 'email'. If the application uses
     | another name for the field you may define it below as needed.
     |
+    | IMPORTANT NOTES!
+    | Fortify's "username" config is still set to "email" because password
+    | reset and verification flows rely on it. Authentication itself is
+    | handled via Fortify::authenticateUsing().
     */
 
     'username' => 'email',

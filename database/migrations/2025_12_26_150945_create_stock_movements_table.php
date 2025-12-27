@@ -16,15 +16,13 @@ return new class () extends Migration {
             // FOREIGN KEY `product_id`
             $table->foreignUlid('product_id')
                 ->constrained()
-                ->onDelete('restrict')
-                ->index();
+                ->restrictOnDelete();
 
             // FOREIGN KEY `user_id`
             $table->foreignUlid('user_id')
                 ->nullable()
                 ->constrained()
-                ->onDelete('restrict')
-                ->index();
+                ->restrictOnDelete();
 
             $table->bigInteger('quantity');
             $table->text('reason');

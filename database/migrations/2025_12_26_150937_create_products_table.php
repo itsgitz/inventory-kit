@@ -13,17 +13,17 @@ return new class () extends Migration {
         Schema::create('products', function (Blueprint $table) {
             $table->ulid('id')->primary();
 
-            // FOREIGN KEY `category_id`
+            // FOREIGN KEY `category_id` -> categories.id
             $table->foreignUlid('category_id')
+                ->nullable()
                 ->constrained()
-                ->onDelete('set null')
-                ->index();
+                ->nullOnDelete();
 
-            // FOREIGN KEY `supplier_id`
+            // FOREIGN KEY `supplier_id` -> `suppliers.id`
             $table->foreignUlid('supplier_id')
+                ->nullable()
                 ->constrained()
-                ->onDelete('set null')
-                ->index();
+                ->nullOnDelete();
 
             $table->string('name')->index();
             $table->string('code')->unique();

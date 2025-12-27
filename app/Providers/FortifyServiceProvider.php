@@ -4,11 +4,14 @@ namespace App\Providers;
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
+use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -26,9 +29,42 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->customAuthenticate();
         $this->configureActions();
         $this->configureViews();
         $this->configureRateLimiting();
+    }
+
+    /**
+     * Customize authentication flow.
+     *
+     * Enable support for login with username or email address.
+     */
+    private function customAuthenticate()
+    {
+        Fortify::authenticateUsing(function (Request $request) {
+            // Login with username or email
+            $email = strtolower($request->input('email'));
+            $password = $request->input('password');
+
+            $user = User::where('email', $email)
+                ->orWhere('username', $email)
+                ->first();
+
+            if (! $user) {
+                throw ValidationException::withMessages([
+                    'email' => __('User not found.'),
+                ]);
+            }
+
+            if (! Hash::check($password, $user->password)) {
+                throw ValidationException::withMessages([
+                    'password' => __('Incorrect password.'),
+                ]);
+            }
+
+            return $user;
+        });
     }
 
     /**
@@ -64,9 +100,9 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         RateLimiter::for('login', function (Request $request) {
-            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
+            $login = Str::lower($request->input('login'));
 
-            return Limit::perMinute(5)->by($throttleKey);
+            return Limit::perMinute(5)->by($login.'|'.$request->ip());
         });
     }
 }

@@ -27,7 +27,7 @@ return new class () extends Migration {
             $table->bigInteger('quantity');
             $table->text('reason');
             $table->enum('type', ['IN', 'OUT'])->index();
-            $table->text('notes');
+            $table->text('notes')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

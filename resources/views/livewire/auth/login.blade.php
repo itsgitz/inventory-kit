@@ -16,7 +16,7 @@
                 type="text"
                 required
                 autofocus
-                placeholder="Username or email@example.com"
+                placeholder="email@example.com"
             />
 
             <!-- Password -->
@@ -27,7 +27,7 @@
                     type="password"
                     required
                     autocomplete="current-password"
-                    :placeholder="__('Password')"
+                    :placeholder="__('The secret password')"
                     viewable
                 />
 

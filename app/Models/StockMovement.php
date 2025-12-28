@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StockMovement extends Model
@@ -24,23 +24,23 @@ class StockMovement extends Model
     ];
 
     /*
-    * The StockMovement has many Product
+    * The StockMovement belongs to Product
     *
-    * @return Illuminate\Database\Eloquent\Relations\HasMany
+    * @return Illuminate\Database\Eloquent\Relations\BelongsTo
     */
-    public function products(): HasMany
+    public function product(): BelongsTo
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsTo(Product::class);
     }
 
     /*
     *
-    * The StockMovement has many User
+    * The StockMovement belongs to User
     *
-    * @return Illuminate\Database\Eloquent\Relations\HasMany
+    * @return Illuminate\Database\Eloquent\Relations\BelongsTo
     */
-    public function users(): HasMany
+    public function user(): BelongsTo
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
 }

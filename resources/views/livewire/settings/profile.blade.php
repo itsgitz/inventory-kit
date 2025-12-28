@@ -38,6 +38,7 @@
             </div>
         </form>
 
-        <livewire:settings.delete-user-form />
+        {{-- Disable delete profile feature. --}}
+        {{-- <livewire:settings.delete-user-form /> --}}
     </x-settings.layout>
 </section>

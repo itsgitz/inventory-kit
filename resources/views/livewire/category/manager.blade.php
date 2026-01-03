@@ -1,3 +1,4 @@
 <div>
-    <h1>I'm the category manager!</h1>
+    <flux:heading size="xl">Category Management</flux:heading>
+    <flux:subheading>Manage your inventory product categories</flux:subheading>
 </div>

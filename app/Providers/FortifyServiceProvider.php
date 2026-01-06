@@ -46,20 +46,15 @@ class FortifyServiceProvider extends ServiceProvider
             // Login with username or email
             $email = strtolower($request->input('email'));
             $password = $request->input('password');
+            $validationMessage = 'Invalid login credentials.';
 
             $user = User::where('email', $email)
                 ->orWhere('username', $email)
                 ->first();
 
-            if (! $user) {
+            if (! $user || ! Hash::check($password, $user->password)) {
                 throw ValidationException::withMessages([
-                    'email' => __('User not found.'),
-                ]);
-            }
-
-            if (! Hash::check($password, $user->password)) {
-                throw ValidationException::withMessages([
-                    'password' => __('Incorrect password.'),
+                    'login' => __($validationMessage),
                 ]);
             }
 

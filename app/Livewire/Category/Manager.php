@@ -7,6 +7,14 @@ use Livewire\Component;
 
 class Manager extends Component
 {
+    public $name = '';
+
+    public $description = '';
+
+    public function save()
+    {
+    }
+
     #[Title('Categories')]
     public function render()
     {

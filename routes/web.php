@@ -1,6 +1,7 @@
 <?php
 
-use App\Livewire\Category\Manager;
+use App\Livewire\Category\Manager as CategoryManager;
+use App\Livewire\Category\Create as CategoryCreate;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -34,5 +35,6 @@ Route::middleware(['auth'])->group(function () {
         )
         ->name('two-factor.show');
 
-    Route::get('categories', Manager::class)->name('categories.manager');
+    Route::get('categories', CategoryManager::class)->name('categories.manager');
+    Route::get('categories/create', CategoryCreate::class)->name('categories.create');
 });

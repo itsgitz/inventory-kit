@@ -27,6 +27,14 @@
                         wire:navigate>
                         {{ __('Categories') }}
                     </flux:navlist.item>
+
+                    <flux:navlist.item
+                        icon="users"
+                        :href="route('suppliers.manager')"
+                        :current="request()->routeIs('suppliers.manager')"
+                        wire:navigate>
+                        {{ __('Suppliers') }}
+                    </flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 

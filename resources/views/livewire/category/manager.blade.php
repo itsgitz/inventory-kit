@@ -15,11 +15,23 @@
 
     {{-- Search and Actions Bar --}}
     <div class="mb-6 flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
-        <div class="w-full sm:w-96">
+        <div class="flex gap-2 w-full sm:max-w-md">
+            <flux:dropdown>
+                <flux:button icon-trailing="chevron-down" variant="outline">{{ $perPage }}</flux:button>
+
+                <flux:menu>
+                    <flux:menu.item wire:click="$set('perPage', 5)">5</flux:menu.item>
+                    <flux:menu.item wire:click="$set('perPage', 10)">10</flux:menu.item>
+                    <flux:menu.item wire:click="$set('perPage', 25)">25</flux:menu.item>
+                    <flux:menu.item wire:click="$set('perPage', 50)">50</flux:menu.item>
+                </flux:menu>
+            </flux:dropdown>
+
             <flux:input
                 wire:model.live.debounce.300ms="search"
                 placeholder="Search categories..."
-                icon="magnifying-glass" />
+                icon="magnifying-glass"
+                class="flex-1" />
         </div>
 
         <flux:button

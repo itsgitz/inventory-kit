@@ -82,6 +82,11 @@ class Manager extends Component
         $this->resetPage();
     }
 
+    public function updatedPerPage()
+    {
+        $this->resetPage();
+    }
+
     public function updatedShowingDeleteModal($value)
     {
         if (!$value) {

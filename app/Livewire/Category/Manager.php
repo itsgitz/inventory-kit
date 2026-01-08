@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Category;
 
+use App\Models\Category;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -14,6 +15,10 @@ class Manager extends Component
     public int $perPage = 10;
     public string $sortField = 'name';
     public string $sortDirection = 'asc';
+    public ?Category $categoryBeingDeleted = null;
+    public string $confirmName = '';
+    public bool $showingDeleteModal = false;
+
 
     #[Title('Categories')]
     public function render()
@@ -27,7 +32,7 @@ class Manager extends Component
 
     public function getCategories()
     {
-        return \App\Models\Category::query()
+        return Category::query()
             ->when($this->search, function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%')
                     ->orWhere('description', 'like', '%' . $this->search . '%');
@@ -47,16 +52,43 @@ class Manager extends Component
         }
     }
 
-    public function delete($id)
+    public function confirmDeletion($id)
     {
-        $category = \App\Models\Category::findOrFail($id);
-        $category->delete();
+        $this->categoryBeingDeleted = Category::findOrFail($id);
+        $this->confirmName = '';
+        $this->showingDeleteModal = true;
+    }
+
+    public function deleteCategory()
+    {
+        if (!$this->categoryBeingDeleted) {
+            return;
+        }
+
+        if ($this->confirmName !== 'delete ' . $this->categoryBeingDeleted->name) {
+            $this->addError('confirmName', 'The confirmation text does not match.');
+            return;
+        }
+
+        $this->categoryBeingDeleted->delete();
+        $this->categoryBeingDeleted = null;
+        $this->confirmName = '';
+        $this->showingDeleteModal = false;
 
         session()->flash('success', 'Category deleted successfully!');
     }
 
+
     public function updatingSearch()
     {
         $this->resetPage();
+    }
+
+    public function updatedShowingDeleteModal($value)
+    {
+        if (!$value) {
+            $this->categoryBeingDeleted = null;
+            $this->confirmName = '';
+        }
     }
 }

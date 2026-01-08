@@ -89,8 +89,7 @@
                             </flux:button>
 
                             <flux:button
-                                wire:click="delete('{{ $category->id }}')"
-                                wire:confirm="Are you sure you want to delete this category?"
+                                wire:click="confirmDeletion('{{ $category->id }}')"
                                 variant="danger"
                                 size="sm"
                                 icon="trash">
@@ -140,4 +139,34 @@
         @endif
     </div>
     @endif
+
+    <flux:modal name="delete-category" wire:model="showingDeleteModal" class="min-w-[22rem]">
+        <form wire:submit="deleteCategory" class="space-y-6">
+            <div>
+                <flux:heading size="lg">Delete Category?</flux:heading>
+
+                <flux:subheading>
+                    Are you sure you want to delete <strong>{{ $categoryBeingDeleted?->name }}</strong>? This action cannot be undone.
+                    <br><br>
+                    Please type <strong>delete {{ $categoryBeingDeleted?->name }}</strong> to confirm.
+                </flux:subheading>
+            </div>
+
+            <flux:input
+                wire:model.live="confirmName"
+                :placeholder="'delete ' . ($categoryBeingDeleted?->name ?? '')" />
+
+            <div class="flex gap-2">
+                <flux:spacer />
+
+                <flux:modal.close>
+                    <flux:button variant="ghost">Cancel</flux:button>
+                </flux:modal.close>
+
+                <flux:button type="submit" variant="danger" :disabled="$confirmName !== 'delete ' . ($categoryBeingDeleted?->name ?? '')">
+                    Delete Category
+                </flux:button>
+            </div>
+        </form>
+    </flux:modal>
 </div>

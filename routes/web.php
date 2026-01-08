@@ -2,6 +2,7 @@
 
 use App\Livewire\Category\Manager as CategoryManager;
 use App\Livewire\Category\Create as CategoryCreate;
+use App\Livewire\Category\Edit as CategoryEdit;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -37,4 +38,5 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('categories', CategoryManager::class)->name('categories.manager');
     Route::get('categories/create', CategoryCreate::class)->name('categories.create');
+    Route::get('categories/{category}/edit', CategoryEdit::class)->name('categories.edit');
 });

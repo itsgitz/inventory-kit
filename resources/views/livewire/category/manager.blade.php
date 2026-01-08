@@ -80,7 +80,7 @@
                     <td class="px-6 py-4 whitespace-nowrap text-right">
                         <div class="flex gap-2 justify-end">
                             <flux:button
-                                href="/categories/{{ $category->id }}/edit"
+                                :href="route('categories.edit', $category)"
                                 variant="ghost"
                                 size="sm"
                                 icon="pencil"

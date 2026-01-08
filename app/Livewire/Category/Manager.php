@@ -12,6 +12,8 @@ class Manager extends Component
 
     public string $search = '';
     public int $perPage = 10;
+    public string $sortField = 'name';
+    public string $sortDirection = 'asc';
 
     #[Title('Categories')]
     public function render()
@@ -31,8 +33,18 @@ class Manager extends Component
                     ->orWhere('description', 'like', '%' . $this->search . '%');
             })
             ->withCount('products')
-            ->latest()
+            ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
+    }
+
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortField = $field;
+            $this->sortDirection = 'asc';
+        }
     }
 
     public function delete($id)

@@ -7,7 +7,7 @@ use Livewire\Form;
 
 class CreateForm extends Form
 {
-    #[Validate('required|min:3')]
+    #[Validate('required|min:3|unique:categories,name')]
     public $name = '';
 
     #[Validate('required|min:5')]

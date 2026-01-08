@@ -21,7 +21,7 @@ class Create extends Component
 
         session()->flash('success', 'Category created successfully!');
 
-        return $this->redirectRoute('categories.manager');
+        return $this->redirectRoute('categories.manager', navigate: true);
     }
 
     #[Title('Create Category')]

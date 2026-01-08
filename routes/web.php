@@ -6,6 +6,9 @@ use App\Livewire\Category\Edit as CategoryEdit;
 use App\Livewire\Supplier\Manager as SupplierManager;
 use App\Livewire\Supplier\Create as SupplierCreate;
 use App\Livewire\Supplier\Edit as SupplierEdit;
+use App\Livewire\Product\Manager as ProductManager;
+use App\Livewire\Product\Create as ProductCreate;
+use App\Livewire\Product\Edit as ProductEdit;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -46,4 +49,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('suppliers', SupplierManager::class)->name('suppliers.manager');
     Route::get('suppliers/create', SupplierCreate::class)->name('suppliers.create');
     Route::get('suppliers/{supplier}/edit', SupplierEdit::class)->name('suppliers.edit');
+
+    Route::get('products', ProductManager::class)->name('products.manager');
+    Route::get('products/create', ProductCreate::class)->name('products.create');
+    Route::get('products/{product}/edit', ProductEdit::class)->name('products.edit');
 });

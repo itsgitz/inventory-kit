@@ -35,6 +35,14 @@
                         wire:navigate>
                         {{ __('Suppliers') }}
                     </flux:navlist.item>
+
+                    <flux:navlist.item
+                        icon="archive-box"
+                        :href="route('products.manager')"
+                        :current="request()->routeIs('products.manager')"
+                        wire:navigate>
+                        {{ __('Products') }}
+                    </flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 

@@ -1,4 +1,4 @@
-@props(['title' => 'Login'])
+@props(['title' => __('Log in') . ' - ' . config('app.name')])
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">

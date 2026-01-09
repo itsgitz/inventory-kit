@@ -43,6 +43,14 @@
                         wire:navigate>
                         {{ __('Products') }}
                     </flux:navlist.item>
+
+                    <flux:navlist.item
+                        icon="arrow-path"
+                        :href="route('stock-movements.manager')"
+                        :current="request()->routeIs('stock-movements.*')"
+                        wire:navigate>
+                        {{ __('Stock Movements') }}
+                    </flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 

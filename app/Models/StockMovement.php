@@ -33,7 +33,7 @@ class StockMovement extends Model
     protected static function booted()
     {
         static::created(function (StockMovement $stockMovement) {
-            if ($stockMovement->type === 'in') {
+            if ($stockMovement->type === 'IN') {
                 $stockMovement->product->increment('current_stock', $stockMovement->quantity);
             } else {
                 $stockMovement->product->decrement('current_stock', $stockMovement->quantity);

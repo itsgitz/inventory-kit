@@ -9,6 +9,8 @@ use App\Livewire\Supplier\Edit as SupplierEdit;
 use App\Livewire\Product\Manager as ProductManager;
 use App\Livewire\Product\Create as ProductCreate;
 use App\Livewire\Product\Edit as ProductEdit;
+use App\Livewire\StockMovement\Manager as StockMovementManager;
+use App\Livewire\StockMovement\Create as StockMovementCreate;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -53,4 +55,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('products', ProductManager::class)->name('products.manager');
     Route::get('products/create', ProductCreate::class)->name('products.create');
     Route::get('products/{product}/edit', ProductEdit::class)->name('products.edit');
+
+    Route::get('stock-movements', StockMovementManager::class)->name('stock-movements.manager');
+    Route::get('stock-movements/create', StockMovementCreate::class)->name('stock-movements.create');
 });

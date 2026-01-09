@@ -101,6 +101,34 @@
                     <flux:navlist.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                       {{ __('Dashboard') }}
                     </flux:navlist.item>
+                    <flux:navlist.item
+                        icon="tag"
+                        :href="route('categories.manager')"
+                        :current="request()->routeIs('categories.*')"
+                        wire:navigate>
+                        {{ __('Categories') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item
+                        icon="users"
+                        :href="route('suppliers.manager')"
+                        :current="request()->routeIs('suppliers.*')"
+                        wire:navigate>
+                        {{ __('Suppliers') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item
+                        icon="archive-box"
+                        :href="route('products.manager')"
+                        :current="request()->routeIs('products.*')"
+                        wire:navigate>
+                        {{ __('Products') }}
+                    </flux:navlist.item>
+                    <flux:navlist.item
+                        icon="arrow-path"
+                        :href="route('stock-movements.manager')"
+                        :current="request()->routeIs('stock-movements.*')"
+                        wire:navigate>
+                        {{ __('Stock Movements') }}
+                    </flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 

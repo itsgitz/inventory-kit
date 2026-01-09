@@ -3,18 +3,19 @@
 use App\Livewire\Category\Manager as CategoryManager;
 use App\Livewire\Category\Create as CategoryCreate;
 use App\Livewire\Category\Edit as CategoryEdit;
-use App\Livewire\Supplier\Manager as SupplierManager;
-use App\Livewire\Supplier\Create as SupplierCreate;
-use App\Livewire\Supplier\Edit as SupplierEdit;
-use App\Livewire\Product\Manager as ProductManager;
+use App\Livewire\Dashboard;
 use App\Livewire\Product\Create as ProductCreate;
 use App\Livewire\Product\Edit as ProductEdit;
-use App\Livewire\StockMovement\Manager as StockMovementManager;
-use App\Livewire\StockMovement\Create as StockMovementCreate;
+use App\Livewire\Product\Manager as ProductManager;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Settings\TwoFactor;
+use App\Livewire\StockMovement\Create as StockMovementCreate;
+use App\Livewire\StockMovement\Manager as StockMovementManager;
+use App\Livewire\Supplier\Create as SupplierCreate;
+use App\Livewire\Supplier\Edit as SupplierEdit;
+use App\Livewire\Supplier\Manager as SupplierManager;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
@@ -22,7 +23,7 @@ Route::get('/', function () {
     return redirect()->route('dashboard');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
+Route::get('dashboard', Dashboard::class)
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 

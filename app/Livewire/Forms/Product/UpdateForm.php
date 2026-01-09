@@ -17,6 +17,7 @@ class UpdateForm extends Form
     public $description = '';
     public $unit_price = '';
     public $current_stock = 0;
+    public $image = null;
 
     public function setProduct(Product $product)
     {
@@ -28,6 +29,7 @@ class UpdateForm extends Form
         $this->description = $product->description;
         $this->unit_price = $product->unit_price;
         $this->current_stock = $product->current_stock;
+        $this->image = $product->image;
     }
 
     public function update()
@@ -43,9 +45,10 @@ class UpdateForm extends Form
             'description' => ['required', 'min:5'],
             'unit_price' => ['required', 'numeric', 'min:0'],
             'current_stock' => ['required', 'integer', 'min:0'],
+            'image' => ['nullable', 'image', 'max:2048'],
         ]);
 
-        $this->product->update([
+        $data = [
             'category_id' => $this->category_id,
             'supplier_id' => $this->supplier_id,
             'name' => $this->name,
@@ -53,6 +56,17 @@ class UpdateForm extends Form
             'description' => $this->description,
             'unit_price' => $this->unit_price,
             'current_stock' => $this->current_stock,
-        ]);
+        ];
+
+        // Handle image upload if a new image is provided
+        if (is_object($this->image) && method_exists($this->image, 'store')) {
+            // Delete old image if it exists
+            if ($this->product->image) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($this->product->image);
+            }
+            $data['image'] = $this->image->store('products', 'public');
+        }
+
+        $this->product->update($data);
     }
 }

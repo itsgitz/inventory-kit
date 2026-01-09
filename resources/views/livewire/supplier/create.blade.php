@@ -47,6 +47,22 @@
                 </div>
             </div>
 
+            <div class="mb-6">
+                <div class="max-w-md">
+                    <flux:input
+                        wire:model="form.image"
+                        type="file"
+                        accept="image/*"
+                        :label="__('Image')"
+                        description="Upload supplier image (optional, max 2MB)" />
+                    @if($form->image)
+                        <div class="mt-2">
+                            <img src="{{ $form->image->temporaryUrl() }}" alt="Preview" class="h-32 w-32 object-cover rounded">
+                        </div>
+                    @endif
+                </div>
+            </div>
+
             {{-- Submit button ... --}}
             <div class="flex gap-3">
                 <flux:button

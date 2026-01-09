@@ -50,6 +50,9 @@
             <thead class="bg-zinc-50 dark:bg-zinc-900">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+                        Image
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
                         Code
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
@@ -72,6 +75,13 @@
             <tbody class="bg-white dark:bg-zinc-800 divide-y divide-zinc-200 dark:divide-zinc-700">
                 @foreach ($products as $product)
                 <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-700/50 transition-colors" wire:key="product-{{ $product->id }}">
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <img 
+                            src="{{ $product->getImageUrl() }}" 
+                            alt="{{ $product->name }}"
+                            class="h-10 w-10 rounded-full object-cover"
+                            onerror="this.src='https://ui-avatars.com/api/?name={{ urlencode($product->name) }}&background=random&color=fff&size=128&bold=true&format=svg'">
+                    </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="text-sm font-mono text-zinc-600 dark:text-zinc-400">
                             {{ $product->code }}

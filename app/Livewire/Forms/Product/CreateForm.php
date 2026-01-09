@@ -27,4 +27,7 @@ class CreateForm extends Form
 
     #[Validate('required|integer|min:0')]
     public $current_stock = 0;
+
+    #[Validate('nullable|image|max:2048')]
+    public $image = null;
 }

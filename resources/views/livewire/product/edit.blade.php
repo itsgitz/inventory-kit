@@ -57,6 +57,24 @@
                         description="Provide detailed information about the product"
                         placeholder="Describe this product ..."
                         required />
+
+                    <div>
+                        <flux:input
+                            wire:model="form.image"
+                            type="file"
+                            accept="image/*"
+                            :label="__('Image')"
+                            description="Upload product image (optional, max 2MB)" />
+                        @if(is_object($form->image) && method_exists($form->image, 'temporaryUrl'))
+                            <div class="mt-2">
+                                <img src="{{ $form->image->temporaryUrl() }}" alt="Preview" class="h-32 w-32 object-cover rounded">
+                            </div>
+                        @elseif($form->image)
+                            <div class="mt-2">
+                                <img src="{{ \Illuminate\Support\Facades\Storage::url($form->image) }}" alt="Current image" class="h-32 w-32 object-cover rounded">
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
 

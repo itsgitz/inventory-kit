@@ -30,6 +30,7 @@ return new class () extends Migration {
             $table->text('description');
             $table->decimal('unit_price');
             $table->bigInteger('current_stock')->index();
+            $table->text('image')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -6,20 +6,28 @@ use App\Livewire\Forms\Product\CreateForm;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Supplier;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\Attributes\Title;
+use Livewire\WithFileUploads;
 
 class Create extends Component
 {
+    use WithFileUploads;
+
     public CreateForm $form;
 
     public function save()
     {
         $this->validate();
 
-        Product::create(
-            $this->form->all()
-        );
+        $data = $this->form->all();
+
+        if ($this->form->image) {
+            $data['image'] = $this->form->image->store('products', 'public');
+        }
+
+        Product::create($data);
 
         session()->flash('success', 'Product created successfully!');
 

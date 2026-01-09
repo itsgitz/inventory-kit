@@ -8,9 +8,12 @@ use App\Models\Product;
 use App\Models\Supplier;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Edit extends Component
 {
+    use WithFileUploads;
+
     public UpdateForm $form;
 
     public function mount(Product $product)

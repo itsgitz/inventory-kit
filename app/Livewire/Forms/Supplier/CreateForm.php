@@ -18,4 +18,7 @@ class CreateForm extends Form
 
     #[Validate('required|min:5')]
     public $address = '';
+
+    #[Validate('nullable|image|max:2048')]
+    public $image = null;
 }

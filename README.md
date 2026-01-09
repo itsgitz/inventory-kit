@@ -27,3 +27,7 @@ This is a minimal viable product (MVP) for an Inventory Management System built 
 - Node.js & NPM
 - MySQL 8.0+ (or PostgreSQL)
 - Laravel 10+
+
+## References
+
+- [Application Specifications](./docs/specifications.md)

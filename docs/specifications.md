@@ -4,6 +4,56 @@ Complete feature documentation for Category, Supplier, Product, and Stock Moveme
 
 ---
 
+## Table of Contents
+
+- [Feature 1: Categories](#feature-1-categories)
+  - [Overview](#overview)
+  - [Core Concepts](#core-concepts)
+  - [Business Rules & Validation](#business-rules--validation)
+  - [UI Components](#ui-components)
+  - [Edge Cases](#edge-cases)
+  - [Test Scenarios](#test-scenarios)
+- [Feature 2: Suppliers](#feature-2-suppliers)
+  - [Overview](#overview-1)
+  - [Core Concepts](#core-concepts-1)
+  - [Business Rules & Validation](#business-rules--validation-1)
+  - [UI Components](#ui-components-1)
+  - [Edge Cases](#edge-cases-1)
+  - [Test Scenarios](#test-scenarios-1)
+- [Feature 3: Products](#feature-3-products)
+  - [Overview](#overview-2)
+  - [Core Concepts](#core-concepts-2)
+  - [Business Rules & Validation](#business-rules--validation-2)
+  - [UI Components](#ui-components-2)
+  - [Stock Management Strategy](#stock-management-strategy)
+  - [Edge Cases](#edge-cases-2)
+  - [Test Scenarios](#test-scenarios-2)
+- [Feature 4: Stock Movements](#feature-4-stock-movements)
+  - [Overview](#overview-3)
+  - [Core Concepts](#core-concepts-3)
+  - [Business Rules & Validation](#business-rules--validation-3)
+  - [UI Components](#ui-components-3)
+  - [Edge Cases](#edge-cases-3)
+  - [Test Scenarios](#test-scenarios-3)
+- [Cross-Feature Integration](#cross-feature-integration)
+  - [Category → Product → Stock Movement Flow](#category--product--stock-movement-flow)
+  - [Data Integrity Rules](#data-integrity-rules)
+  - [Deletion Matrix](#deletion-matrix)
+- [MVP Scope vs Future Enhancements](#mvp-scope-vs-future-enhancements)
+  - [Implemented in MVP](#implemented-in-mvp)
+  - [Future Features (Post-MVP)](#future-features-post-mvp)
+- [Performance Checklist for Production](#performance-checklist-for-production)
+  - [Database Optimizations](#database-optimizations)
+  - [UI Optimizations](#ui-optimizations)
+  - [Code Quality](#code-quality)
+- [Testing Strategy](#testing-strategy)
+  - [Unit Tests](#unit-tests)
+  - [Feature Tests](#feature-tests)
+  - [Browser Tests (Dusk)](#browser-tests-dusk)
+- [Documentation Structure for Repo](#documentation-structure-for-repo)
+
+---
+
 ## Feature 1: Categories
 
 ### Overview

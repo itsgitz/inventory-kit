@@ -110,11 +110,20 @@
                                 @endphp
                                 <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800/80 transition-colors">
                                     <td class="px-4 py-3 text-sm">
-                                        <div class="font-medium text-zinc-900 dark:text-white">
-                                            {{ $product->name }}
-                                        </div>
-                                        <div class="text-xs text-zinc-500 dark:text-zinc-500">
-                                            {{ $product->code }}
+                                        <div class="flex items-center gap-3">
+                                            <img 
+                                                src="{{ $product->getImageUrl() }}" 
+                                                alt="{{ $product->name }}"
+                                                class="h-10 w-10 rounded-full object-cover flex-shrink-0"
+                                                onerror="this.src='https://ui-avatars.com/api/?name={{ urlencode($product->name) }}&background=random&color=fff&size=128&bold=true&format=svg'">
+                                            <div>
+                                                <div class="font-medium text-zinc-900 dark:text-white">
+                                                    {{ $product->name }}
+                                                </div>
+                                                <div class="text-xs text-zinc-500 dark:text-zinc-500">
+                                                    {{ $product->code }}
+                                                </div>
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400">

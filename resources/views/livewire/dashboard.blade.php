@@ -1,14 +1,14 @@
 <div>
     <div class="mb-6">
-        <flux:heading size="xl">Inventory Overview</flux:heading>
-        <flux:subheading>High-level snapshot of your inventory health</flux:subheading>
+        <flux:heading size="xl">{{ __('Inventory Overview') }}</flux:heading>
+        <flux:subheading>{{ __('High-level snapshot of your inventory health') }}</flux:subheading>
     </div>
 
     {{-- Top Stats --}}
     <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-6">
         <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900 shadow-sm">
             <div class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-                Total Products
+                {{ __('Total Products') }}
             </div>
             <div class="mt-2 text-2xl font-semibold text-zinc-900 dark:text-white">
                 {{ number_format($stats['totalProducts']) }}
@@ -17,7 +17,7 @@
 
         <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900 shadow-sm">
             <div class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-                Categories
+                {{ __('Categories') }}
             </div>
             <div class="mt-2 text-2xl font-semibold text-zinc-900 dark:text-white">
                 {{ number_format($stats['totalCategories']) }}
@@ -26,7 +26,7 @@
 
         <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900 shadow-sm">
             <div class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-                Suppliers
+                {{ __('Suppliers') }}
             </div>
             <div class="mt-2 text-2xl font-semibold text-zinc-900 dark:text-white">
                 {{ number_format($stats['totalSuppliers']) }}
@@ -36,14 +36,14 @@
         <div class="rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900 shadow-sm">
             <div class="flex items-center justify-between">
                 <div class="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-                    Total Stock On Hand
+                    {{ __('Total Stock On Hand') }}
                 </div>
             </div>
             <div class="mt-2 text-2xl font-semibold text-zinc-900 dark:text-white">
                 {{ number_format($stats['totalStockOnHand']) }}
             </div>
             <div class="mt-1 text-xs text-zinc-500 dark:text-zinc-500">
-                Sum of all product stock
+                {{ __('Sum of all product stock') }}
             </div>
         </div>
     </div>
@@ -54,10 +54,10 @@
             <div class="flex items-center justify-between border-b border-zinc-200 px-4 py-3 dark:border-zinc-800">
                 <div>
                     <div class="text-sm font-medium text-zinc-900 dark:text-white">
-                        Low Stock Products
+                        {{ __('Low Stock Products') }}
                     </div>
                     <div class="text-xs text-zinc-500 dark:text-zinc-500">
-                        Based on current stock levels
+                        {{ __('Based on current stock levels') }}
                     </div>
                 </div>
                 <flux:button
@@ -66,7 +66,7 @@
                     variant="outline"
                     icon="arrow-right"
                     wire:navigate>
-                    View Products
+                    {{ __('View Products') }}
                 </flux:button>
             </div>
 
@@ -76,16 +76,16 @@
                         <thead class="bg-zinc-50 dark:bg-zinc-900/50">
                             <tr>
                                 <th class="px-4 py-2 text-left text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                                    Product
+                                    {{ __('Product') }}
                                 </th>
                                 <th class="px-4 py-2 text-left text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                                    Category
+                                    {{ __('Category') }}
                                 </th>
                                 <th class="px-4 py-2 text-left text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                                    Stock
+                                    {{ __('Stock') }}
                                 </th>
                                 <th class="px-4 py-2 text-left text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                                    Status
+                                    {{ __('Status') }}
                                 </th>
                             </tr>
                         </thead>
@@ -95,16 +95,16 @@
                                     $stock = (int) $product->current_stock;
 
                                     if ($stock <= 0) {
-                                        $statusLabel = 'Out of Stock';
+                                        $statusLabel = __('Out of Stock');
                                         $statusColor = 'red';
                                     } elseif ($stock < 10) {
-                                        $statusLabel = 'Low Stock';
+                                        $statusLabel = __('Low Stock');
                                         $statusColor = 'yellow';
                                     } elseif ($stock <= 15) {
-                                        $statusLabel = 'Warning';
+                                        $statusLabel = __('Warning');
                                         $statusColor = 'yellow';
                                     } else {
-                                        $statusLabel = 'Available';
+                                        $statusLabel = __('Available');
                                         $statusColor = 'green';
                                     }
                                 @endphp
@@ -127,7 +127,7 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-3 text-sm text-zinc-600 dark:text-zinc-400">
-                                        {{ $product->category?->name ?? 'Uncategorized' }}
+                                        {{ $product->category?->name ?? __('Uncategorized') }}
                                     </td>
                                     <td class="px-4 py-3 text-sm font-semibold text-zinc-900 dark:text-white">
                                         {{ $stock }}
@@ -146,10 +146,10 @@
                 <div class="px-4 py-8 text-center">
                     <flux:icon.folder-open class="mx-auto h-10 w-10 text-zinc-400" />
                     <flux:heading size="sm" class="mt-3">
-                        No products yet
+                        {{ __('No products yet') }}
                     </flux:heading>
                     <flux:subheading class="mt-1">
-                        Start by adding your first product to see low stock alerts.
+                        {{ __('Start by adding your first product to see low stock alerts.') }}
                     </flux:subheading>
                 </div>
             @endif
@@ -160,10 +160,10 @@
             <div class="flex items-center justify-between border-b border-zinc-200 px-4 py-3 dark:border-zinc-800">
                 <div>
                     <div class="text-sm font-medium text-zinc-900 dark:text-white">
-                        Recent Stock Movements
+                        {{ __('Recent Stock Movements') }}
                     </div>
                     <div class="text-xs text-zinc-500 dark:text-zinc-500">
-                        Latest stock in/out transactions
+                        {{ __('Latest stock in/out transactions') }}
                     </div>
                 </div>
                 <flux:button
@@ -172,7 +172,7 @@
                     variant="outline"
                     icon="arrow-right"
                     wire:navigate>
-                    View All
+                    {{ __('View All') }}
                 </flux:button>
             </div>
 
@@ -182,17 +182,17 @@
                         <li class="px-4 py-3 flex items-start gap-3">
                             <div class="mt-1">
                                 <flux:badge color="{{ $movement->type === 'IN' ? 'green' : 'yellow' }}" size="sm">
-                                    {{ $movement->type === 'IN' ? 'In' : 'Out' }}
+                                    {{ $movement->type === 'IN' ? __('In') : __('Out') }}
                                 </flux:badge>
                             </div>
                             <div class="flex-1">
                                 <div class="flex items-center justify-between">
                                     <div>
                                         <div class="text-sm font-medium text-zinc-900 dark:text-white">
-                                            {{ $movement->product?->name ?? 'Deleted Product' }}
+                                            {{ $movement->product?->name ?? __('Deleted Product') }}
                                         </div>
                                         <div class="text-xs text-zinc-500 dark:text-zinc-500">
-                                            {{ $movement->product?->code ?? 'N/A' }}
+                                            {{ $movement->product?->code ?? __('N/A') }}
                                         </div>
                                     </div>
                                     <div class="text-sm font-semibold text-zinc-900 dark:text-white">
@@ -204,11 +204,11 @@
                                         {{ $movement->created_at->format('M d, Y h:i A') }}
                                     </span>
                                     <span>
-                                        By {{ $movement->user?->name ?? 'Deleted User' }}
+                                        {{ __('By :name', ['name' => $movement->user?->name ?? __('Deleted User')]) }}
                                     </span>
                                 </div>
                                 <div class="mt-1 text-xs text-zinc-500 dark:text-zinc-500">
-                                    Reason: {{ $movement->reason }}
+                                    {{ __('Reason: :reason', ['reason' => $movement->reason]) }}
                                 </div>
                             </div>
                         </li>
@@ -218,10 +218,10 @@
                 <div class="px-4 py-8 text-center">
                     <flux:icon.folder-open class="mx-auto h-10 w-10 text-zinc-400" />
                     <flux:heading size="sm" class="mt-3">
-                        No stock movements yet
+                        {{ __('No stock movements yet') }}
                     </flux:heading>
                     <flux:subheading class="mt-1">
-                        Record your first stock transaction to see recent activity here.
+                        {{ __('Record your first stock transaction to see recent activity here.') }}
                     </flux:subheading>
                 </div>
             @endif

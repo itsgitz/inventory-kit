@@ -1,7 +1,7 @@
 <div>
     <div class="mb-6">
-        <flux:heading size="xl">Stock Movements</flux:heading>
-        <flux:subheading>Track all inventory transactions and stock changes</flux:subheading>
+        <flux:heading size="xl">{{ __('Stock Movements') }}</flux:heading>
+        <flux:subheading>{{ __('Track all inventory transactions and stock changes') }}</flux:subheading>
     </div>
 
     {{-- Success message --}}
@@ -29,7 +29,7 @@
 
             <flux:input
                 wire:model.live.debounce.300ms="search"
-                placeholder="Search by product name..."
+                :placeholder="__('Search by product name...')"
                 icon="magnifying-glass"
                 class="flex-1" />
         </div>
@@ -38,18 +38,18 @@
             <flux:dropdown>
                 <flux:button icon-trailing="chevron-down" variant="outline">
                     @if ($filterType === 'all')
-                        All Types
+                        {{ __('All Types') }}
                     @elseif ($filterType === 'IN')
-                        Stock In
+                        {{ __('Stock In') }}
                     @else
-                        Stock Out
+                        {{ __('Stock Out') }}
                     @endif
                 </flux:button>
 
                 <flux:menu>
-                    <flux:menu.item wire:click="$set('filterType', 'all')">All Types</flux:menu.item>
-                    <flux:menu.item wire:click="$set('filterType', 'IN')">Stock In</flux:menu.item>
-                    <flux:menu.item wire:click="$set('filterType', 'OUT')">Stock Out</flux:menu.item>
+                    <flux:menu.item wire:click="$set('filterType', 'all')">{{ __('All Types') }}</flux:menu.item>
+                    <flux:menu.item wire:click="$set('filterType', 'IN')">{{ __('Stock In') }}</flux:menu.item>
+                    <flux:menu.item wire:click="$set('filterType', 'OUT')">{{ __('Stock Out') }}</flux:menu.item>
                 </flux:menu>
             </flux:dropdown>
 
@@ -58,7 +58,7 @@
                 variant="primary"
                 icon="plus"
                 wire:navigate>
-                Record Transaction
+                {{ __('Record Transaction') }}
             </flux:button>
         </div>
     </div>
@@ -70,25 +70,25 @@
             <thead class="bg-zinc-50 dark:bg-zinc-900">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
-                        Date
+                        {{ __('Date') }}
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
-                        Product
+                        {{ __('Product') }}
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
-                        Type
+                        {{ __('Type') }}
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
-                        Quantity
+                        {{ __('Quantity') }}
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
-                        Ending Stock
+                        {{ __('Ending Stock') }}
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
-                        Reason
+                        {{ __('Reason') }}
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
-                        User
+                        {{ __('User') }}
                     </th>
                 </tr>
             </thead>
@@ -105,15 +105,15 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="font-medium text-zinc-900 dark:text-white">
-                            {{ $movement->product?->name ?? 'Deleted Product' }}
+                            {{ $movement->product?->name ?? __('Deleted Product') }}
                         </div>
                         <div class="text-xs text-zinc-500 dark:text-zinc-500">
-                            {{ $movement->product?->code ?? 'N/A' }}
+                            {{ $movement->product?->code ?? __('N/A') }}
                         </div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <flux:badge color="{{ $movement->type === 'IN' ? 'green' : 'yellow' }}" size="sm">
-                            {{ $movement->type === 'IN' ? 'In' : 'Out' }}
+                            {{ $movement->type === 'IN' ? __('In') : __('Out') }}
                         </flux:badge>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
@@ -133,7 +133,7 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="text-sm text-zinc-600 dark:text-zinc-400">
-                            {{ $movement->user?->name ?? 'Deleted User' }}
+                            {{ $movement->user?->name ?? __('Deleted User') }}
                         </div>
                     </td>
                 </tr>
@@ -152,16 +152,16 @@
         <flux:icon.folder-open class="mx-auto h-12 w-12 text-zinc-400" />
         <flux:heading size="lg" class="mt-4">
             @if ($search || $filterType !== 'all')
-            No stock movements found
+            {{ __('No stock movements found') }}
             @else
-            No stock movements yet
+            {{ __('No stock movements yet') }}
             @endif
         </flux:heading>
         <flux:subheading class="mt-2">
             @if ($search || $filterType !== 'all')
-            Try adjusting your search terms or filters
+            {{ __('Try adjusting your search terms or filters') }}
             @else
-            Get started by recording your first stock transaction
+            {{ __('Get started by recording your first stock transaction') }}
             @endif
         </flux:subheading>
 
@@ -172,7 +172,7 @@
                 variant="primary"
                 icon="plus"
                 wire:navigate>
-                Record Transaction
+                {{ __('Record Transaction') }}
             </flux:button>
         </div>
         @endif

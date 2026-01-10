@@ -1,7 +1,7 @@
 <div>
     <div class="mb-6">
-        <flux:heading size="xl">Supplier Management</flux:heading>
-        <flux:subheading>Manage your inventory suppliers</flux:subheading>
+        <flux:heading size="xl">{{ __('Supplier Management') }}</flux:heading>
+        <flux:subheading>{{ __('Manage your inventory suppliers') }}</flux:subheading>
     </div>
 
     {{-- Success message --}}
@@ -29,7 +29,7 @@
 
             <flux:input
                 wire:model.live.debounce.300ms="search"
-                placeholder="Search suppliers..."
+                :placeholder="__('Search suppliers...')"
                 icon="magnifying-glass"
                 class="flex-1" />
         </div>
@@ -39,7 +39,7 @@
             variant="primary"
             icon="plus"
             wire:navigate>
-            Create Supplier
+            {{ __('Create Supplier') }}
         </flux:button>
     </div>
 
@@ -50,22 +50,22 @@
             <thead class="bg-zinc-50 dark:bg-zinc-900">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
-                        Image
+                        {{ __('Image') }}
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
-                        Name
+                        {{ __('Name') }}
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
-                        Email & Phone
+                        {{ __('Email & Phone') }}
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
-                        Address
+                        {{ __('Address') }}
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
-                        Created
+                        {{ __('Created') }}
                     </th>
                     <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
-                        Actions
+                        {{ __('Actions') }}
                     </th>
                 </tr>
             </thead>
@@ -110,7 +110,7 @@
                                 size="sm"
                                 icon="pencil"
                                 wire:navigate>
-                                Edit
+                                {{ __('Edit') }}
                             </flux:button>
 
                             <flux:button
@@ -118,7 +118,7 @@
                                 variant="danger"
                                 size="sm"
                                 icon="trash">
-                                Delete
+                                {{ __('Delete') }}
                             </flux:button>
                         </div>
                     </td>
@@ -138,16 +138,16 @@
         <flux:icon.users class="mx-auto h-12 w-12 text-zinc-400" />
         <flux:heading size="lg" class="mt-4">
             @if ($search)
-            No suppliers found
+            {{ __('No suppliers found') }}
             @else
-            No suppliers yet
+            {{ __('No suppliers yet') }}
             @endif
         </flux:heading>
         <flux:subheading class="mt-2">
             @if ($search)
-            Try adjusting your search terms
+            {{ __('Try adjusting your search terms') }}
             @else
-            Get started by creating your first supplier
+            {{ __('Get started by creating your first supplier') }}
             @endif
         </flux:subheading>
 
@@ -158,7 +158,7 @@
                 variant="primary"
                 icon="plus"
                 wire:navigate>
-                Create Supplier
+                {{ __('Create Supplier') }}
             </flux:button>
         </div>
         @endif
@@ -168,12 +168,12 @@
     <flux:modal name="delete-supplier" wire:model="showingDeleteModal" class="min-w-[22rem]">
         <form wire:submit="deleteSupplier" class="space-y-6">
             <div>
-                <flux:heading size="lg">Delete Supplier?</flux:heading>
+                <flux:heading size="lg">{{ __('Delete Supplier?') }}</flux:heading>
 
                 <flux:subheading>
-                    Are you sure you want to delete <strong>{{ $supplierBeingDeleted?->name }}</strong>? This action cannot be undone.
+                    {!! __('Are you sure you want to delete :name? This action cannot be undone.', ['name' => '<strong>' . e($supplierBeingDeleted?->name ?? '') . '</strong>']) !!}
                     <br><br>
-                    Please type <strong>delete {{ $supplierBeingDeleted?->name }}</strong> to confirm.
+                    {!! __('Please type delete :name to confirm.', ['name' => '<strong>' . e($supplierBeingDeleted?->name ?? '') . '</strong>']) !!}
                 </flux:subheading>
             </div>
 
@@ -185,11 +185,11 @@
                 <flux:spacer />
 
                 <flux:modal.close>
-                    <flux:button variant="ghost">Cancel</flux:button>
+                    <flux:button variant="ghost">{{ __('Cancel') }}</flux:button>
                 </flux:modal.close>
 
                 <flux:button type="submit" variant="danger" :disabled="$confirmName !== 'delete ' . ($supplierBeingDeleted?->name ?? '')">
-                    Delete Supplier
+                    {{ __('Delete Supplier') }}
                 </flux:button>
             </div>
         </form>

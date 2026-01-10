@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms\Category;
 
 use App\Models\Category;
+use App\Services\CategoryService;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
 
@@ -20,7 +21,7 @@ class UpdateForm extends Form
         $this->description = $category->description;
     }
 
-    public function update()
+    public function update(CategoryService $categoryService)
     {
         $this->validate([
             'name' => [
@@ -31,7 +32,7 @@ class UpdateForm extends Form
             'description' => ['required', 'min:5'],
         ]);
 
-        $this->category->update([
+        $categoryService->update($this->category, [
             'name' => $this->name,
             'description' => $this->description,
         ]);

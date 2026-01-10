@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms\Supplier;
 
 use App\Models\Supplier;
+use App\Services\SupplierService;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
 
@@ -24,7 +25,7 @@ class UpdateForm extends Form
         $this->address = $supplier->address;
     }
 
-    public function update()
+    public function update(SupplierService $supplierService)
     {
         $this->validate([
             'name' => [
@@ -45,7 +46,7 @@ class UpdateForm extends Form
             'address' => ['required', 'min:5'],
         ]);
 
-        $this->supplier->update([
+        $supplierService->update($this->supplier, [
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,

@@ -3,7 +3,7 @@
 namespace App\Livewire\Category;
 
 use App\Livewire\Forms\Category\CreateForm;
-use App\Models\Category;
+use App\Services\CategoryService;
 use Livewire\Component;
 use Livewire\Attributes\Title;
 
@@ -11,11 +11,18 @@ class Create extends Component
 {
     public CreateForm $form;
 
+    protected CategoryService $categoryService;
+
+    public function boot(CategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
     public function save()
     {
         $this->validate();
 
-        Category::create(
+        $this->categoryService->create(
             $this->form->only(['name', 'description'])
         );
 

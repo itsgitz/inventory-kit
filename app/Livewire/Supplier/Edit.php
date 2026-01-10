@@ -4,12 +4,19 @@ namespace App\Livewire\Supplier;
 
 use App\Livewire\Forms\Supplier\UpdateForm;
 use App\Models\Supplier;
+use App\Services\SupplierService;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class Edit extends Component
 {
     public UpdateForm $form;
+    public SupplierService $supplierService;
+
+    public function boot(SupplierService $supplierService)
+    {
+        $this->supplierService = $supplierService;
+    }
 
     public function mount(Supplier $supplier)
     {
@@ -18,7 +25,7 @@ class Edit extends Component
 
     public function save()
     {
-        $this->form->update();
+        $this->form->update($this->supplierService);
 
         session()->flash('success', 'Supplier updated successfully!');
 

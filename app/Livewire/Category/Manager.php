@@ -3,6 +3,7 @@
 namespace App\Livewire\Category;
 
 use App\Models\Category;
+use App\Services\CategoryService;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -19,6 +20,13 @@ class Manager extends Component
     public string $confirmName = '';
     public bool $showingDeleteModal = false;
 
+    protected CategoryService $categoryService;
+
+    public function boot(CategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
 
     #[Title('Categories')]
     public function render()
@@ -32,14 +40,12 @@ class Manager extends Component
 
     public function getCategories()
     {
-        return Category::query()
-            ->when($this->search, function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%')
-                    ->orWhere('description', 'like', '%' . $this->search . '%');
-            })
-            ->withCount('products')
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+        return $this->categoryService->getCategories(
+            $this->search,
+            $this->sortField,
+            $this->sortDirection,
+            $this->perPage
+        );
     }
 
     public function sortBy($field)
@@ -70,7 +76,7 @@ class Manager extends Component
             return;
         }
 
-        $this->categoryBeingDeleted->delete();
+        $this->categoryService->delete($this->categoryBeingDeleted);
         $this->categoryBeingDeleted = null;
         $this->confirmName = '';
         $this->showingDeleteModal = false;

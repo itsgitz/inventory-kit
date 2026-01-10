@@ -4,15 +4,21 @@ namespace App\Livewire\StockMovement;
 
 use App\Livewire\Forms\StockMovement\CreateForm;
 use App\Models\Product;
-use App\Models\StockMovement;
+use App\Services\StockMovementService;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Livewire\Component;
 use Livewire\Attributes\Title;
+use Livewire\Component;
 
 class Create extends Component
 {
     public CreateForm $form;
+
+    protected StockMovementService $stockMovementService;
+
+    public function boot(StockMovementService $stockMovementService)
+    {
+        $this->stockMovementService = $stockMovementService;
+    }
 
     public function mount()
     {
@@ -23,17 +29,8 @@ class Create extends Component
     {
         $this->validate();
 
-        $product = Product::findOrFail($this->form->product_id);
-
-        // Validate stock availability for OUT movements
-        if ($this->form->type === 'OUT' && $product->current_stock < $this->form->quantity) {
-            $this->addError('form.quantity', 'Insufficient stock. Available: ' . $product->current_stock);
-            return;
-        }
-
-        // Use database transaction to ensure data integrity
-        DB::transaction(function () use ($product) {
-            StockMovement::create([
+        try {
+            $this->stockMovementService->create([
                 'product_id' => $this->form->product_id,
                 'user_id' => Auth::id(),
                 'type' => $this->form->type,
@@ -41,11 +38,14 @@ class Create extends Component
                 'reason' => $this->form->reason,
                 'notes' => $this->form->notes,
             ]);
-        });
 
-        session()->flash('success', 'Stock movement recorded successfully!');
+            session()->flash('success', 'Stock movement recorded successfully!');
 
-        return $this->redirectRoute('stock-movements.manager', navigate: true);
+            return $this->redirectRoute('stock-movements.manager', navigate: true);
+        } catch (\Exception $e) {
+            $this->addError('form.quantity', $e->getMessage());
+            return;
+        }
     }
 
     public function updatedFormType()

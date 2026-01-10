@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms\Product;
 
 use App\Models\Product;
+use App\Services\ProductService;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
 
@@ -32,7 +33,7 @@ class UpdateForm extends Form
         $this->image = $product->image;
     }
 
-    public function update()
+    public function update(ProductService $productService)
     {
         $this->validate([
             'category_id' => ['nullable', 'exists:categories,id'],
@@ -58,15 +59,11 @@ class UpdateForm extends Form
             'current_stock' => $this->current_stock,
         ];
 
-        // Handle image upload if a new image is provided
+        $image = null;
         if (is_object($this->image) && method_exists($this->image, 'store')) {
-            // Delete old image if it exists
-            if ($this->product->image) {
-                \Illuminate\Support\Facades\Storage::disk('public')->delete($this->product->image);
-            }
-            $data['image'] = $this->image->store('products', 'public');
+            $image = $this->image;
         }
 
-        $this->product->update($data);
+        $productService->update($this->product, $data, $image);
     }
 }

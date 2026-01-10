@@ -3,6 +3,7 @@
 namespace App\Livewire\Product;
 
 use App\Models\Product;
+use App\Services\ProductService;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -19,6 +20,13 @@ class Manager extends Component
     public string $confirmName = '';
     public bool $showingDeleteModal = false;
 
+    protected ProductService $productService;
+
+    public function boot(ProductService $productService)
+    {
+        $this->productService = $productService;
+    }
+
     #[Title('Products')]
     public function render()
     {
@@ -31,15 +39,12 @@ class Manager extends Component
 
     public function getProducts()
     {
-        return Product::query()
-            ->with(['category', 'supplier'])
-            ->when($this->search, function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%')
-                    ->orWhere('code', 'like', '%' . $this->search . '%')
-                    ->orWhere('description', 'like', '%' . $this->search . '%');
-            })
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+        return $this->productService->getProducts(
+            $this->search,
+            $this->sortField,
+            $this->sortDirection,
+            $this->perPage
+        );
     }
 
     public function sortBy($field)
@@ -70,7 +75,7 @@ class Manager extends Component
             return;
         }
 
-        $this->productBeingDeleted->delete();
+        $this->productService->delete($this->productBeingDeleted);
         $this->productBeingDeleted = null;
         $this->confirmName = '';
         $this->showingDeleteModal = false;

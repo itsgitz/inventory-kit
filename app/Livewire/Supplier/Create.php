@@ -3,8 +3,7 @@
 namespace App\Livewire\Supplier;
 
 use App\Livewire\Forms\Supplier\CreateForm;
-use App\Models\Supplier;
-use Illuminate\Support\Facades\Storage;
+use App\Services\SupplierService;
 use Livewire\Component;
 use Livewire\Attributes\Title;
 use Livewire\WithFileUploads;
@@ -15,17 +14,21 @@ class Create extends Component
 
     public CreateForm $form;
 
+    protected SupplierService $supplierService;
+
+    public function boot(SupplierService $supplierService)
+    {
+        $this->supplierService = $supplierService;
+    }
+
     public function save()
     {
         $this->validate();
 
         $data = $this->form->only(['name', 'email', 'phone', 'address']);
+        $image = $this->form->image ?? null;
 
-        if ($this->form->image) {
-            $data['image'] = $this->form->image->store('suppliers', 'public');
-        }
-
-        Supplier::create($data);
+        $this->supplierService->create($data, $image);
 
         session()->flash('success', 'Supplier created successfully!');
 

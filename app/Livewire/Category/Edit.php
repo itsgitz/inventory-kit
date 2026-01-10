@@ -4,21 +4,23 @@ namespace App\Livewire\Category;
 
 use App\Livewire\Forms\Category\UpdateForm;
 use App\Models\Category;
+use App\Services\CategoryService;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class Edit extends Component
 {
     public UpdateForm $form;
+    public CategoryService $categoryService; 
 
-    public function mount(Category $category)
+    public function boot(CategoryService $categoryService)
     {
-        $this->form->setCategory($category);
+        $this->categoryService = $categoryService;
     }
 
     public function save()
     {
-        $this->form->update();
+        $this->form->update($this->categoryService);
 
         session()->flash('success', 'Category updated successfully!');
 

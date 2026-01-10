@@ -9,12 +9,19 @@ use App\Models\Supplier;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Services\ProductService;
 
 class Edit extends Component
 {
     use WithFileUploads;
 
     public UpdateForm $form;
+    public ProductService $productService;
+
+    public function boot(ProductService $productService)
+    {
+        $this->productService = $productService;
+    }
 
     public function mount(Product $product)
     {
@@ -23,7 +30,7 @@ class Edit extends Component
 
     public function save()
     {
-        $this->form->update();
+        $this->form->update($this->productService);
 
         session()->flash('success', 'Product updated successfully!');
 

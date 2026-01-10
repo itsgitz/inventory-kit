@@ -3,6 +3,7 @@
 namespace App\Livewire\Supplier;
 
 use App\Models\Supplier;
+use App\Services\SupplierService;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -19,6 +20,13 @@ class Manager extends Component
     public string $confirmName = '';
     public bool $showingDeleteModal = false;
 
+    protected SupplierService $supplierService;
+
+    public function boot(SupplierService $supplierService)
+    {
+        $this->supplierService = $supplierService;
+    }
+
     #[Title('Suppliers')]
     public function render()
     {
@@ -31,14 +39,12 @@ class Manager extends Component
 
     public function getSuppliers()
     {
-        return Supplier::query()
-            ->when($this->search, function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%')
-                    ->orWhere('email', 'like', '%' . $this->search . '%')
-                    ->orWhere('phone', 'like', '%' . $this->search . '%');
-            })
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+        return $this->supplierService->getSuppliers(
+            $this->search,
+            $this->sortField,
+            $this->sortDirection,
+            $this->perPage
+        );
     }
 
     public function sortBy($field)
@@ -69,7 +75,7 @@ class Manager extends Component
             return;
         }
 
-        $this->supplierBeingDeleted->delete();
+        $this->supplierService->delete($this->supplierBeingDeleted);
         $this->supplierBeingDeleted = null;
         $this->confirmName = '';
         $this->showingDeleteModal = false;
